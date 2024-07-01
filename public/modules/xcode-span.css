@@ -1,0 +1,90 @@
+.span-code pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+.span-code code.hljs {
+  padding: 3px 5px
+}
+/*
+
+XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
+
+*/
+.span-code .hljs {
+  background: #fafaa1;
+  color: black
+}
+/* Gray DOCTYPE selectors like WebKit */
+.span-code .xml .hljs-meta {
+  color: #c0c0c0
+}
+.span-code .hljs-comment,
+.span-code .hljs-quote {
+  color: #007400
+}
+.span-code .hljs-tag,
+.span-code .hljs-attribute,
+.span-code .hljs-keyword,
+.span-code .hljs-selector-tag,
+.span-code .hljs-literal,
+.span-code .hljs-name {
+  color: #aa0d91
+}
+.span-code .hljs-variable,
+.span-code .hljs-template-variable {
+  color: #3F6E74
+}
+.span-code .hljs-code,
+.span-code .hljs-string,
+.span-code .hljs-meta .hljs-string {
+  color: #c41a16
+}
+.span-code .hljs-regexp,
+.span-code .hljs-link {
+  color: #0E0EFF
+}
+.span-code .hljs-title,
+.span-code .hljs-symbol,
+.span-code .hljs-bullet,
+.span-code .hljs-number {
+  color: #1c00cf
+}
+.span-code .hljs-section,
+.span-code .hljs-meta {
+  color: #643820
+}
+.span-code .hljs-title.class_,
+.span-code .hljs-class .hljs-title,
+.span-code .hljs-type,
+.span-code .hljs-built_in,
+.span-code .hljs-params {
+  color: #5c2699
+}
+.span-code .hljs-attr {
+  color: #836C28
+}
+.span-code .hljs-subst {
+  color: #000
+}
+.span-code .hljs-formula {
+  background-color: #eee;
+  font-style: italic
+}
+.span-code .hljs-addition {
+  background-color: #baeeba
+}
+.span-code .hljs-deletion {
+  background-color: #ffc8bd
+}
+.span-code .hljs-selector-id,
+.span-code .hljs-selector-class {
+  color: #9b703f
+}
+.span-code .hljs-doctag,
+.span-code .hljs-strong {
+  font-weight: bold
+}
+.span-code .hljs-emphasis {
+  font-style: italic
+}

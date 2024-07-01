@@ -1,0 +1,316 @@
+/*
+Рекомендации по порядку стилей:
+1. Элементы (h1—h6, р, a, list, links, images).
+2. Типографика
+3. Макет страницы (заголовок, информационное содержимое, навигация, глобальная
+навигация, дополнительная навигация, боковая полоса, подвал (footer)).
+4. Теги формы (form, fieldset, label, legend).
+5. Контент (статьи, события, новости).
+*/
+/*todo: отстортировать по рекомендациям*/
+
+h1, h2, h3, h4, h5 {
+    font-family: Georgia;
+}
+p {
+    text-align: justify;
+}
+/*Оформление шапки*/
+#header header {
+    border-color: black;
+    background: aliceblue;
+    border-width:1px;
+    border-style:solid
+}
+
+#header ul {
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 0; /* Значение полей */
+}
+
+#header ul li {
+    display: inline; /* Отображать как строчный элемент */
+    margin-right: 5px; /* Отступ слева */
+    border: 1px solid #000; /* Рамка вокруг текста */
+    padding: 3px; /* Поля вокруг текста */
+    border-radius: 10px;
+    vertical-align: middle;
+}
+#header ul li:hover{
+    background-color: #00ffcf;
+}
+
+/*
+Блок справки по html-тегам
+*/
+.html_tag_description .label{
+    font-family: Georgia;
+    font-weight: bold;
+}
+.html_tag_description ul{
+    list-style-type: none;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    margin-left: 20px;
+}
+
+div.html_tag_description{
+    border-color: black;
+    border-width:1px;
+    border-style:solid;
+    border-radius: 4px;
+}
+
+
+span.code, span span.html_tag_description_name{
+    font-family: "Courier New";
+    font-weight: 700;
+    background: #f3f3f3;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #800;
+    font-family: monospace;
+
+}
+
+.html_tag_description_name{
+    font-family: Georgia;
+    font-weight: bold;
+    font-size: 30px;
+}
+.html_example {
+    border-color: black;
+    background: aliceblue;
+    border-width:1px;
+    border-style:solid;
+    font-family: "JetBrains Mono Thin";
+}
+
+.html_example span.html_tag {
+    font-weight: bold;
+    font-size: x-large;
+    font-family: "JetBrains Mono";
+}
+/*Автомасштаб изображений */
+img:not(#site_logo) {
+    max-width:100%;
+    height:auto;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+/*Для всех таблиц*/
+table, th, td {
+    border: 1px solid;
+}
+/*Первый столбец любой таблицы*/
+td:nth-child(1) {
+    text-align: center;
+}
+/*Первая строка таблицы*/
+tr:first-child td {
+    text-align: center;
+    font-weight: bold;
+}
+/*TODO: адекватно оформить блок навигации по странице*/
+#autonav{
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    border: black 1px solid;
+}
+#autonav a{
+    display: block;
+}
+/*отступ для всех дочерних певого уровня*/
+#autonav .ch0 {font-size: 150%;}
+#autonav .ch1 {margin-left: 15px;}
+#autonav .ch2 {margin-left: 30px;}
+#autonav .ch3 {margin-left: 45px;}
+
+/*Добавить всплывающие подсказки
+https://webref.ru/layout/pseudo-class-hover/tooltip
+*/
+[data-tooltip] {
+    position: relative; /* Относительное позиционирование */
+    background: aqua;
+}
+[data-tooltip]::after {
+    content: attr(data-tooltip); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    width: 300px; /* Ширина подсказки */
+    left: 0; top: 0; /* Положение подсказки */
+    background: #3989c9; /* Синий цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 0.5em; /* Поля вокруг текста */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Параметры тени */
+    pointer-events: none; /* Подсказка */
+    opacity: 0; /* Подсказка невидима */
+    transition: 1s; /* Время появления подсказки */
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: normal;
+    text-align: justify;
+}
+[data-tooltip]:hover::after {
+    opacity: 1; /* Показываем подсказку */
+    top: 1em; /* Положение подсказки */
+}
+
+/*Разметка для кода*/
+.hljs {border-radius: 10px;}
+.span-code{display: inline-block;}
+.span-code code.hljs {padding: 0px 3px}
+/*Разметка для кнопки раскоменчивания кода*/
+pre:has(code.hljs) img.uncomment-button:not(#site_logo) {
+    margin-left: 0px;
+    margin-right: 0px;
+    position: absolute;
+    z-index: 99;
+    right: 20px;
+    opacity: 0.5;
+    visibility: hidden;
+    /*надо сделать рескейл вручную*/
+    width: 30px;
+}
+pre:has(code.hljs) img.uncomment-button:not(#site_logo):hover{opacity: 1;}
+pre code.hljs:hover img.uncomment-button:not(#site_logo){visibility: visible;}
+
+pre:has(code.hljs) img.copy-button:not(#site_logo) {
+    margin-left: 0px;
+    margin-right: 0px;
+    position: absolute;
+    z-index: 99;
+    right: 60px;
+    opacity: 0.5;
+    visibility: hidden;
+    /*надо сделать рескейл вручную*/
+    width: 30px;
+}
+pre:has(code.hljs) img.copy-button:not(#site_logo):hover{opacity: 1;}
+pre code.hljs:hover img.copy-button:not(#site_logo){visibility: visible;}
+
+
+/*h1,h2,h3, h4:after {*/
+/*    content: "";*/
+/*    border-bottom: 1px solid #4bb;*/
+/*    border-top: 1px solid #4bb;*/
+/*    width: 100%;*/
+/*    height: 0.1em;*/
+/*    !*position: absolute;*!*/
+/*    top: calc(0.45em - 1px);*/
+/*    margin-left: 10px;*/
+/*}*/
+
+/*!*Граница отделяющая разделы*!*/
+/*h2{*/
+/*    border-top: black solid 1px;*/
+/*    padding-top: 25px;*/
+/*    margin-top: 50px;*/
+/*}*/
+/*todo: возможность минимизации глав в оглавлении*/
+#index-hello_div {
+    display: flex;
+}
+#index-hello-text {
+    margin-left: 10px;
+}
+/*==================================================*/
+/*dropdown-меню в коде*/
+/* Dropdown Button */
+.code-selection .dropbtn {
+    background-color: transparent;
+    /*color: white;*/
+    /*font-size: 16px;*/
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.code-selection .dropbtn:hover,
+.code-selection .dropbtn:focus {
+    /*background-color: #2980B9;*/
+}
+
+/* The container <div> - needed to position the dropdown content */
+.code-selection .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.code-selection .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: currentColor;
+    border-radius: 10px;
+    border: solid 1px #5c5c5c;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.code-selection .dropdown-content *{
+    background-color: #1e1e1e;
+    /*color: black;*/
+    /*padding: 12px 16px;*/
+    /*text-decoration: none;*/
+    /*display: block;*/
+}
+
+/* Change color of dropdown links on hover */
+.code-selection .dropdown-content *:hover {
+    background-color: #000000;
+}
+
+.code-selection .dropdown {
+    display: inline-block;
+    box-shadow: 3px 2px 5px 0px black;
+    border-radius: 3px;
+    font-size: 110%;
+    border: solid 1px #5c5c5c;
+}
+
+.code-selection .dropdown:hover{
+    box-shadow: 3px 2px 5px 0px #8a8a8a;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.code-selection .show {display:grid;}
+
+/*todo: подобрать хорошее оформление для div.code-example-output*/
+.code-example-output {
+    border: 1px black solid;
+    border-radius: 10px;
+    transition: background-color 150ms ease-out 150ms;
+    /*margin: 10px;*/
+    /*padding: 10px;*/
+}
+
+.code-example-output pre {
+    margin: 2px;
+}
+
+.code-example-output:hover{
+    background-color: #ffff84;
+}
+.code-example-output-title span {
+    font-weight: bold;
+}
+.code-example-output pre * {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+/*todo: поставить .code-example-output на все элементы выода примеров*/
+[data-tippy-content] {
+    background-color: #89e0fc;
+    border-radius: 10px;
+}
+[data-tippy-content]:hover {
+    background-color: #32c5ff;
+    border-radius: 10px;
+}
+
+.toggle-button{
+    border-radius: 5px;
+}

@@ -1,0 +1,63 @@
+.span-code pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+.span-code code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+
+*/
+.span-code .hljs {
+  background: #e8e8d8;
+  color: black
+}
+.span-code .hljs-comment,
+.span-code .hljs-quote,
+.span-code .hljs-variable {
+  color: #008000
+}
+.span-code .hljs-keyword,
+.span-code .hljs-selector-tag,
+.span-code .hljs-built_in,
+.span-code .hljs-name,
+.span-code .hljs-tag {
+  color: #00f
+}
+.span-code .hljs-string,
+.span-code .hljs-title,
+.span-code .hljs-section,
+.span-code .hljs-attribute,
+.span-code .hljs-literal,
+.span-code .hljs-template-tag,
+.span-code .hljs-template-variable,
+.span-code .hljs-type,
+.span-code .hljs-addition {
+  color: #a31515
+}
+.span-code .hljs-deletion,
+.span-code .hljs-selector-attr,
+.span-code .hljs-selector-pseudo,
+.span-code .hljs-meta {
+  color: #2b91af
+}
+.span-code .hljs-doctag {
+  color: #808080
+}
+.span-code .hljs-attr {
+  color: #f00
+}
+.span-code .hljs-symbol,
+.span-code .hljs-bullet,
+.span-code .hljs-link {
+  color: #00b0e8
+}
+.span-code .hljs-emphasis {
+  font-style: italic
+}
+.span-code .hljs-strong {
+  font-weight: bold
+}
