@@ -28,8 +28,8 @@ const server = http.createServer((req,res) => {
             res.writeHead(200, { 'Content-Type': 'text/plain; charset=UTF-8' })
             res.end('Открыта страница учебников')
             break
-        case '/textbook/nodejs':
-            serveStaticFile(res, '/public/textbook/nodejs/index.html', 'text/html')
+        case '/textbook/NodeJS':
+            serveStaticFile(res, '/public/textbook/NodeJS/index.html', 'text/html')
             break
         case String(path.match(/\/textbook\/nodejs\/ch\d*/i)):
             serveStaticFile(res, `/public/textbook/nodejs/ch${String(path.match(/\/textbook\/nodejs\/ch(\d*)/i)[1])}.html`, 'text/html')

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url("../styles/styles.css");
+        {{#if chapter}}
+        @import url("../modules/vs2015.min.css");
+        {{/if}}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../modules/jquery-3.7.1.min.js"><'+'/script>')</script>
+    {{#if chapter}}
+    <script src="../modules/highlight.min.js"></script>
+    {{/if}}
+    <script src="../scripts/body_scripts.js"></script>
+    <script src="../common/counters_head.js"></script>
+    <title>{{{title}}}</title>
+</head>
+<body>
+<script src="../common/counters_body.js"></script>
+{{! todo: добавить breacrumbs }}
+{{{body}}}
+</body>
+</html>

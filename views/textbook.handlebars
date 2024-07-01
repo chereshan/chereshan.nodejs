@@ -1,0 +1,7 @@
+<h1>{{title}}</h1>
+<ul>
+    {{! Шаблон списка учебников }}
+    {{#each textbooks}}
+        <li><a href="/textbook/{{this}}">{{this}}</a></li>
+    {{/each}}
+</ul>
