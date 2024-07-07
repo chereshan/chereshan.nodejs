@@ -88,4 +88,6 @@ app.listen(port, () => console.log(
     `http://localhost:${port}/textbook/nodejs; \n`+
     `http://localhost:${port}/textbook/nodejs/ch1; \n`+
     `http://localhost:${port}/textbook/nodejs/ch2; \n`+
+    `http://localhost:${port}/textbook/nodejs/ch5; \n`+
+    `http://localhost:${port}/textbook/nodejs/ch6; \n`+
     `нажмите Ctrl+C для завершения.` ))

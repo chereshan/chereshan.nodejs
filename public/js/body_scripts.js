@@ -314,7 +314,7 @@ function loadChapterAutoNav(){
                     //создание класса уровней списка
                     let list_level=autonav_listLevel(h)
                     jQuery('#autonav').append(`<li class="${list_level}"><a href=${'#'+$(this).attr('id')}>${$(this).attr('id').slice(3)}. ${$(this).text().replace(/\</g, '&lt;')}</a></li>`);
-                    console.log($(this).text())
+                    // console.log($(this).text())
                     $(this).html($(this).attr('id').slice(3)+'. '+$(this).html())
                 })
 //
