@@ -9,16 +9,14 @@ $(function(){
 //=================================================
 //расположение пост-dom html-тегов
 /*
-* хедер
-* автооглавление
 * подсветка кода
 * подсветка для span.code
 * */
 $(function(){
-    $('body').prepend('<div id="header"></div>')
-    $("#header").load(!(
-        location.pathname==='/' ||
-        location.pathname==='/chereshan.github.io/index.html') ? "/static/common/header.html" : "/static/common/header.html")
+    // $('body').prepend('<div id="header"></div>')
+    // $("#header").load(!(
+    //     location.pathname==='/' ||
+    //     location.pathname==='/chereshan.github.io/index.html') ? "/static/common/header.handlebars" : "/static/common/header.handlebars")
 
     $('span.code').each(function(){
         $(this).replaceWith(`<pre class="span-code"><code>${$(this).html()}</code></pre>`)
@@ -506,28 +504,6 @@ async function getChapterTitle(num, url){
         }
     });
     return y;
-}
-
-//todo: исправить атонав по учебнику. При медленной загрузке скрипт не отрабатывает
-//todo: добавить вариант без index.html
-$(function(){loadTextbookAutoNav()})
-function loadTextbookAutoNav(){
-    if ($('.textbook-index-page').length>0){
-        $('.textbook-index-page').after('<ul class="autonav"></ul>')
-        let index_root = window.location.href.search('index.html')
-        index_root = window.location.href.slice(0, index_root)
-        let textbookIndex;
-        Promise.allSettled(Array.from(Array(20).keys()).map((num) => getChapterTitle(num, index_root))).then(ch => {
-            textbookIndex = ch.filter((i) => i.status == "fulfilled").map(j => j.value)
-        }).then($(function () {
-            $('body ul').not('header ul').empty()
-            setTimeout(function () {
-                for (let i = 0; i < textbookIndex.length; i++) {
-                    $('body ul').not('header ul').append(`<li><a href="${Object.values(textbookIndex[i])}">${Object.keys(textbookIndex[i])}</a></li>`)
-                }
-            }, 500)
-        }))
-    }
 }
 
 

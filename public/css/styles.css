@@ -16,7 +16,7 @@ p {
     text-align: justify;
 }
 /*Оформление шапки*/
-#header header {
+#header{
     border-color: black;
     background: aliceblue;
     border-width:1px;

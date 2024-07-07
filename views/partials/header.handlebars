@@ -1,0 +1,13 @@
+<header id="header">
+    <div id="menu"> <!-- Меню -->
+        <ul>
+            <!-- Логотип сайта -->
+            <li><a href="/textbook"><img src="/static/common/my_facemug.png" alt="Логотип" width="25" id="site_logo"></a></li>
+            {{! Шаблон списка учебников }}
+            {{#each textbooks}}
+                <li><a href="/textbook/{{this}}">Учебник по {{this}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+</header>
+

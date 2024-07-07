@@ -12,15 +12,8 @@ app.engine('handlebars', expressHandlebars.engine({
 app.set('view engine', 'handlebars')
 app.use('/static', express.static(__dirname + '/public'))
 
-//main (online-market)
-// app.get('/', (req, res) => {
-//     res.type('text/plain')
-//     res.send('Meadowlark Travel');
-// })
+// Handlebars.registerPartial('header', '{{header}}');
 
-//textbook
-// console.log(__dirname)
-// console.log(fs.readdirSync(__dirname+'/public/textbook'))
 app.get('/textbook', (req, res) => {
         res.render('textbook',
             {
@@ -30,14 +23,7 @@ app.get('/textbook', (req, res) => {
         )
     }
 )
-
-// const parseTitle = (body) => {
-//     let match = body.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
-//     if (!match || typeof match[1] !== 'string')
-//         throw new Error('Unable to parse the title tag')
-//     return match[1]
-// }
-
+//todo: написать app.get для хедера
 //todo: экономный поиск title
 app.get('/textbook/[^/]+', (req, res) => {
     // console.log(req)
@@ -54,7 +40,8 @@ app.get('/textbook/[^/]+', (req, res) => {
 
                 } )
                 ,
-                title: 'Учебник '+spec_textbook_name
+                title: 'Учебник '+spec_textbook_name,
+                textbooks: fs.readdirSync(__dirname + '/public/textbook')
             }
         )
     }
@@ -67,39 +54,34 @@ app.get('/textbook/[^/]+/ch[0-9]+', (req, res) => {
                 body: fs.readFileSync(__dirname+'/public/'+req._parsedUrl.pathname+'.html',
                     { encoding: 'utf8', flag: 'r' }),
                 chapter: true,
-                title: ''
+                title: '',
+                textbooks: fs.readdirSync(__dirname + '/public/textbook')
             }
         )
     }
 )
-// app.get('/textbook/[^/]', (req, res) => {
-//         res.render('specific-textbook',
-//             {
-//                 textbooks: fs.readdirSync(__dirname + '/public/textbook'),
-//                 title: 'Учебники'
-//             }
-//         )
-//     }
-// )
 
 // app.get('/textbook', (req, res) => res.render('textbook'))
 //
 // //online-market
 // //...
 //
-// // Пользовательская страница 500
-// app.use((err, req, res, next) => {
-//     console.error(err.message)
-//     res.type('text/plain')
-//     res.status(500)
-//     res.send('500 — Ошибка сервера')
-// })
-// // Пользовательская страница 404
-// app.use((req, res) => {
-//     res.type('text/plain')
-//     res.status(404)
-//     res.send('404 — Не найдено')
-// })
+// Пользовательская страница 500
+app.use((err, req, res, next) => {
+    console.error(err.message)
+    res.type('text/plain')
+    res.status(500)
+    res.send('500 — Ошибка сервера')
+})
+// Пользовательская страница 404
+app.use((req, res) => {
+    res.status(404)
+    res.render('404',
+        {
+            title: '404',
+            textbooks: fs.readdirSync(__dirname + '/public/textbook')
+        })
+})
 
 app.listen(port, () => console.log(
     `Express запущен на http://localhost:${port}/textbook; \n` +
