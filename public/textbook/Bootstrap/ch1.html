@@ -1,0 +1,304 @@
+<!--<title>Глава 1. Введение в Bootstrap</title>-->
+<h1>Глава 1. Введение в Bootstrap</h1>
+<p>Основной целью разработчиков из Twitter было создание клиентского фрейморка для адаптивной разработки, совместного использования с основными браузерами.</p>
+
+
+<h2>Получение Bootstrap</h2>
+<p>Перед получением Bootstrap должен получится jQuery - это единственная зависимость Bootstrap</p>
+
+<pre><code >&lt;!doctype html>
+&lt;html lang="en">
+&lt;head>
+    &lt;!-- Required meta tags -->
+    &lt;meta charset="utf-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    &lt;!-- Bootstrap CSS -->
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    &lt;title>Hello, world!&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;h1>Hello, world!&lt;/h1>
+
+&lt;!-- Optional JavaScript -->
+&lt;!-- jQuery first, then Popper.js, then Bootstrap JS -->
+&lt;script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">&lt;/script>
+&lt;script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">&lt;/script>
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">&lt;/script>
+&lt;/body>
+&lt;/html></code></pre>
+
+<p>Сжатые файлы в архиве с исходными файлами расположены в каталоге <span class="code">dist</span>. Если скачать архив из раздела <i>Compiled CSS</i> and <i>JS</i>, то его содержимое и есть содержимое каталога dist. В каталоге <span class="code">dist\css</span> расположены следующие файлы:</p>
+
+<ul>
+    <li><span class="code">bootstrap.css</span> — основной файл со стилями без сжатия;</li>
+    <li><span class="code">bootstrap.min.css</span> — основной файл со стилями в сжатом виде;</li>
+    <li><span class="code">bootstrap-reboot.css</span> — файл с нормализацией (сбросом) стилей без сжатия;</li>
+    <li><span class="code">bootstrap-reboot.min.css</span> — файл с нормализацией (сбросом) стилей в сжатом виде;</li>
+    <li><span class="code">bootstrap-grid.css</span> — стили для использования системы сеток без сжатия;</li>
+    <li><span class="code">bootstrap-grid.min.css</span> — стили для использования системы сеток в сжатом виде.</li>
+</ul>
+
+<p>Кроме того, в каталоге <span class="code">dist\css</span> расположены также файлы с расширением <span class="code">map</span>. Если расположить файл с расширением <span class="code">map</span> рядом с одноименным файлом, имеющим расширение <span class="code">css</span> или <span class="code">js</span>, то веб-браузер в окне консоли будет показывать название файла с исходным кодом, а не название подключенного файла в сжатом виде.</p>
+<p></p>
+<p>Файл <span class="code">bootstrap.bundle.min.js</span> содержит код файла <span class="code">bootstrap.min.js</span>, а также код библиотеки <span class="code">Popper.js</span>. Поэтому подключать одновременно эти файлы нельзя. Библиотека <span class="code">Popper.js</span> понадобится при работе с некоторыми компонентами, реализующими различные всплывающие элементы, — например, подсказки.</p>
+
+<h2>Адаптивный дизайн</h2>
+<p>В библиотеке Bootstrap используются следующие сокращения для различных устройств: <span class="code">sm</span>, <span class="code">md</span>, <span class="code">lg</span>, <span class="code">xl</span> и <span class="code">xxl</span> (в Bootstrap 5). Эти сокращения (точки останова) присутствуют в названиях стилевых классов. Вот минимальная ширина экранов для различных сокращений:</p>
+<pre><code >&lt;style>
+    @media (min-width: 576px) {
+        /* sm (Small; 576px и более) */
+    }
+    @media (min-width: 768px) {
+        /* md (Medium; 768px и более) */
+    }
+    @media (min-width: 992px) {
+        /* lg (Large; 992px и более) */
+    }
+    @media (min-width: 1200px) {
+        /* xl (Extra large; 1200px и более) */
+    }
+    @media (min-width: 1400px) {
+        /* Bootstrap 5 */
+        /* xxl (Extra extra large; 1400px и более) */
+    }
+&lt;/style></code></pre>
+<p>Значения <b>точек останова</b> доступны через следующие CSS-переменные в Bootstrap 4 (в Bootstrap 5 эти переменные отсутствуют):</p>
+<pre><code >--breakpoint-xs: 0; /* Extra small / phone */
+--breakpoint-sm: 576px; /* Small / phone */
+--breakpoint-md: 768px; /* Medium / tablet */
+--breakpoint-lg: 992px; /* Large / desktop */
+--breakpoint-xl: 1200px; /* Extra large / wide desktop */ </code></pre>
+<p>Рассмотрим несколько примеров.</p>
+<p>Сначала отобразим текст по центру внутри рамки для всех точек останова:</p>
+<pre><code>&lt;div class="border text-center">Текст&lt;/div></code></pre>
+<div class="code-example-output-title"><span>Вывод:</span>
+<div class="code-example-output">
+<div class="border text-center">Текст</div>
+</div>
+</div>
+<p>При ширине от <span class="code">0</span> до <span class="code">1199px</span> выполним выравнивание текста по центру, а при большей ширине — по правому краю:</p>
+<pre><code>&lt;div class="border text-center text-xl-right">Текст&lt;/div> </code></pre>
+<div class="code-example-output-title"><span>Вывод:</span>
+<!--<div class="code-example-output">-->
+<div class="border text-center text-xl-right">Текст</div>
+<!--</div>-->
+</div>
+
+<p>Выполним разное выравнивание для всех точек останова в Bootstrap 4:</p>
+<pre><code>&lt;div class="border text-center text-sm-right text-md-center text-lg-left
+text-xl-right">Текст&lt;/div></code></pre>
+<!--<div class="code-example-output-title"><span>Вывод:</span>-->
+<div class="border text-sm-right text-md-center text-lg-left text-xl-right">Текст</div>
+<!--</div>-->
+<p>Внимательный читатель наверняка заметил, что мы не использовали в названиях
+стилевых классов точку останова <span class="code">xs</span>. Дело в том, что стилевой класс, предназначенный для точки останова <span class="code">xs</span>, не содержит в названии точку останова. Иными словами, библиотека Bootstrap изначально предназначена для мобильных устройств
+(принцип <b>mobile-first</b>). Если нет других стилевых классов с названием точки останова, то правила стилей действуют для всех устройств.</p>
+
+<h2>Базовые контейнеры</h2>
+<p>В библиотеке Bootstrap существуют следующие стилевые классы, описывающие
+характеристики базовых контейнеров:</p>
+<ul>
+    <li><span class="code">container</span> — максимальная ширина контейнера 1320 px в Bootstrap 5.</li>
+    <p>Классы для адаптивной верстки: <span class="code">container-sm</span>, <span class="code">container-md</span>, <span class="code">container-lg</span>, <span class="code">container-xl</span>, <span class="code">container-xxl</span></p>
+    <li><span class="code">container-fluid</span> — ширина контейнера всегда 100%</li>
+    <li><span class="code">.container-{breakpoint}</span> - ширина контейнера 100% до определенной точки останова</li>
+</ul>
+<p>В отличие от контейнера по умолчанию, для базовых контейнеров, помимо ширины, дополнительно прописываются значения внутренних и внешних отступов справа и слева. Стили в Bootstrap 5:</p>
+<pre><code >padding-right: 1rem;
+padding-left: 1rem;
+margin-right: auto;
+margin-left: auto;</code></pre>
+<p>Примеры:</p>
+<pre><code>&lt;div class="container bg-warning">.container&lt;/div></code></pre>
+<div class="container bg-warning">.container</div>
+<pre><code>&lt;div class="container-sm bg-success">.container-sm&lt;/div></code></pre>
+<div class="container-sm bg-success">.container-sm</div>
+<pre><code>&lt;div class="container-md bg-warning">.container-md&lt;/div></code></pre>
+<div class="container-md bg-warning">.container-md</div>
+<pre><code>&lt;div class="container-lg bg-success">.container-lg&lt;/div></code></pre>
+<div class="container-lg bg-success">.container-lg</div>
+<pre><code>&lt;div class="container-xl bg-warning">.container-xl&lt;/div></code></pre>
+<div class="container-xl bg-warning">.container-xl</div>
+<pre><code>&lt;div class="container-fluid bg-success">.container-fluid&lt;/div></code></pre>
+<div class="container-fluid bg-success">.container-fluid</div>
+<pre><code>&lt;div class="bg-warning">По умолчанию&lt;/div></code></pre>
+<div class="bg-warning">По умолчанию</div>
+<!-- Bootstrap 5 -->
+<pre><code>&lt;div class="container-xxl bg-success">.container-xxl&lt;/div> </code></pre>
+<div class="container-xxl bg-success">.container-xxl</div>
+<p>В этом примере классы <span class="code">bg-warning</span> и <span class="code">bg-success</span> задают цвет фона контейнера. Это
+сделано, чтобы можно было различить контейнеры визуально. Попробуйте в режиме Адаптивный дизайн изменить ширину экрана, переместив правую границу с
+помощью мыши, — ширина контейнеров будет подстраиваться под текущую ширину экрана. Ширина контейнеров при разной ширине экрана приведена в табл. ниже:</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <td class="border-dark"></td>
+        <th scope="col">
+            Extra small<br>
+            <span class="fw-normal">&lt;576px</span>
+        </th>
+        <th scope="col">
+            Small<br>
+            <span class="fw-normal">≥576px</span>
+        </th>
+        <th scope="col">
+            Medium<br>
+            <span class="fw-normal">≥768px</span>
+        </th>
+        <th scope="col">
+            Large<br>
+            <span class="fw-normal">≥992px</span>
+        </th>
+        <th scope="col">
+            X-Large<br>
+            <span class="fw-normal">≥1200px</span>
+        </th>
+        <th scope="col">
+            XX-Large<br>
+            <span class="fw-normal">≥1400px</span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container</code></th>
+        <td class="text-muted">100%</td>
+        <td>540px</td>
+        <td>720px</td>
+        <td>960px</td>
+        <td>1140px</td>
+        <td>1320px</td>
+    </tr>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container-sm</code></th>
+        <td class="text-muted">100%</td>
+        <td>540px</td>
+        <td>720px</td>
+        <td>960px</td>
+        <td>1140px</td>
+        <td>1320px</td>
+    </tr>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container-md</code></th>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td>720px</td>
+        <td>960px</td>
+        <td>1140px</td>
+        <td>1320px</td>
+    </tr>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container-lg</code></th>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td>960px</td>
+        <td>1140px</td>
+        <td>1320px</td>
+    </tr>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container-xl</code></th>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td>1140px</td>
+        <td>1320px</td>
+    </tr>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container-xxl</code></th>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td>1320px</td>
+    </tr>
+    <tr>
+        <th scope="row" class="fw-normal"><code>.container-fluid</code></th>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+        <td class="text-muted">100%</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Цвет фона</h2>
+<p>Задать цвет фона контейнера или элемента позволяют следующие стилевые классы
+(аналоги CSS-атрибута <span class="code">background-color</span>):</p>
+<ul class="container-right bg-warning">
+    <li><span class="bg-white border">.bg-white</span> — белый цвет;</li>
+    <li><span class="bg-dark border text-white">.bg-white text-white</span> — темно-серый цвет;</li>
+    <li><span class="bg-light border">bg-light</span> — светло-серый цвет;</li>
+    <li><span class="bg-success border">.bg-success</span> — цвет успешно выполненной операции (зеленый);</li>
+    <li><span class="bg-info border">.bg-info</span> — цвет информационного сообщения;</li>
+    <li><span class="bg-warning border">.bg-warning</span> — цвет предупреждающего сообщения (желтый);</li>
+    <li><span class="bg-danger border">.bg-warning</span> — цвет опасности (красный);</li>
+    <li><span class="bg-primary border">.bg-primary</span> — синий цвет;</li>
+    <li><span class="bg-secondary border">.bg-primary</span> — серый цвет;</li>
+    <li><span class="bg-transparent  border">.bg-transparent</span> — прозрачный фон;</li>
+    <li><span class="bg-body  border">.bg-body</span> — цвет фона, указанный для элемента BODY;</li>
+    <li><span class="bg-gradient  border">.bg-gradient</span> — градиентный фон;</li>
+</ul>
+<p>Названия CSS-переменных и их значения в Bootstrap 5:</p>
+<pre><code >--bs-blue: #0d6efd;
+--bs-cyan: #17a2b8;
+--bs-gray: #6c757d;
+--bs-gray-dark: #343a40;
+--bs-green: #28a745;
+--bs-indigo: #6610f2;
+--bs-orange: #fd7e14;
+--bs-pink: #d63384;
+--bs-purple: #6f42c1;
+--bs-red: #dc3545;
+--bs-teal: #20c997;
+--bs-white: #fff;
+--bs-yellow: #ffc107;
+--bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+--bs-dark: #343a40;
+--bs-light: #f8f9fa;
+--bs-success: #28a745;
+--bs-info: #17a2b8;
+--bs-warning: #ffc107;
+--bs-danger: #dc3545;
+--bs-primary: #0d6efd;
+--bs-secondary: #6c757d;</code></pre>
+
+<pre><code>&lt;p style="background-color: var(--bs-red)">Текст абзаца1&lt;/p>
+&lt;p style="background-color: var(--bs-success)">Текст абзаца2&lt;/p>
+&lt;p style="background-image: var(--bs-gradient);
+background-color: var(--bs-success)">Текст абзаца3&lt;/p></code></pre>
+<p style="background-color: var(--bs-red)">Текст абзаца1</p>
+<p style="background-color: var(--bs-success)">Текст абзаца2</p>
+<p style="background-image: var(--bs-gradient); background-color: var(--bs-success)">Текст абзаца3</p>
+
+<h2>Форматирование шрифта</h2>
+<p>В библиотеке Bootstrap 5 для элемента BODY задаются следующие характеристики шрифта и фона:</p>
+<pre><code >&lt;style>
+    body {
+        margin: 0;
+        font-family: var(--bs-font-sans-serif);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+&lt;/style></code></pre>
+
+
+<h2>Сетка Bootstrap</h2>
+
+
+
+
+
+
