@@ -1,13 +1,29 @@
-<header id="header">
-    <div id="menu"> <!-- Меню -->
-        <ul>
-            <!-- Логотип сайта -->
-            <li><a href="/textbook"><img src="/static/common/my_facemug.png" alt="Логотип" width="25" id="site_logo"></a></li>
-            {{! Шаблон списка учебников }}
-            {{#each textbooks}}
-                <li><a href="/textbook/{{this}}">Учебник по {{this}}</a></li>
-            {{/each}}
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Offcanvas navbar large">
+    <div class="container-fluid">
+        <a class="navbar-brand btn btn-outline-primary" href="/textbook">
+            <img src="/static/common/my_facemug.png" alt="Логотип" width="25" id="site_logo" class="rounded">
+            chereshan.nodejs
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+                <divs class="offcanvas-title" id="offcanvasNavbar2Label">Меню</divs>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    {{#each textbooks}}
+                        <li class="nav-item"><a class="nav-link px-2 text-white btn btn-outline-primary" href="/textbook/{{this}}">Учебник по {{this}}</a></li>
+                    {{/each}}
+                </ul>
+                <form class="d-flex mt-3 mt-lg-0" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Поиск..." aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
     </div>
-</header>
+</nav>
 

@@ -19,7 +19,8 @@ app.get('/textbook', (req, res) => {
             {
                 textbooks: fs.readdirSync(__dirname + '/public/textbook'),
                 title: 'Учебники',
-                mockshop: false
+                mockshop: false,
+                bootstrap: true
             }
         )
     }
@@ -43,7 +44,8 @@ app.get('/textbook/[^/]+', (req, res) => {
                     } )
                 ,
                 title: 'Учебник '+spec_textbook_name,
-                textbooks: fs.readdirSync(__dirname + '/public/textbook')
+                textbooks: fs.readdirSync(__dirname + '/public/textbook'),
+                bootstrap: true
             }
         )
     }
@@ -71,7 +73,7 @@ app.get('/textbook/[^/]+/ch[0-9]+', (req, res) => {
                 body: fs.readFileSync(__dirname+'/public/'+req._parsedUrl.pathname+'.html',
                     { encoding: 'utf8', flag: 'r' }),
                 chapter: true,
-                bootstrap: false,
+                bootstrap: true,
                 title: '',
                 textbooks: fs.readdirSync(__dirname + '/public/textbook')
             }
@@ -105,7 +107,8 @@ app.use((req, res) => {
     res.render('404',
         {
             title: '404',
-            textbooks: fs.readdirSync(__dirname + '/public/textbook')
+            textbooks: fs.readdirSync(__dirname + '/public/textbook'),
+            bootstrap: true
         })
 })
 
