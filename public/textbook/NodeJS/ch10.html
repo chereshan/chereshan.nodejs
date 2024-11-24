@@ -1,0 +1,196 @@
+<!--<title>Глава 10. REST API</title>-->
+<h1>Глава 10. REST API</h1>
+<p>Когда у нас уже есть база данных MongoDB, то необходимо иметь интерфейс для взаимодействия с ней, помимо командной оболочки MongoDB (<span class="code">mongosh</span>). В этой главе создадим <b>API REST</b>,
+что даст возможность работать с БД через HTTP-вызовы и выполнять типичные
+функции <span class="code">CRUD</span>: <i>создание</i>, <i>чтение</i>, <i>обновление</i> и <i>удаление</i>.</p>
+<p>В основном мы будем иметь дело с Node и Express, применяя Mongoose в качестве вспомогательного средства при взаимодействии. Место этой главы в общей
+архитектуре приложения демонстрирует рис. ниже.</p>
+<img src="https://ltdfoto.ru/images/2024/08/10/image214b194d87b532b6.png" alt="image214b194d87b532b6.png" border="0" />
+<h2>Правила API REST</h2>
+<p>Начну с напоминания о том, что такое API REST:</p>
+<ul>
+    <li><b>REST</b> расшифровывается как «передача состояния представления» (<i>Representational State Transfer</i>) и представляет собой скорее архитектурный стиль, чем жесткий протокол. В REST отсутствует сохранение состояния, он ничего не знает о состоянии или истории действий текущего пользователя;</li>
+    <li><b>API</b> — аббревиатура для <i>Application Program Interface</i> — интерфейс программирования приложений, который дает приложениям возможность общаться друг с другом.</li>
+</ul>
+<p>Итак, REST — интерфейс к вашему приложению, в котором отсутствует сохранение состояния. В случае использования стека MEAN API REST используется
+для создания интерфейса (без сохранения состояния), обеспечивающего другим
+приложениям возможность работать с соответствующими данными.</p>
+<p>У API REST имеется свой набор стандартов. Хотя это и не обязательно, но
+лучше их придерживаться, чтобы все создаваемые вами API были единообразными.
+Это также значит, что вы привыкнете делать все правильно на случай, если захотите сделать свой API общедоступным.</p>
+Проще говоря, API REST принимает входящий HTTP-запрос, как-то его обрабатывает и всегда возвращает HTTP-ответ (см. рис. ниже).
+<img src="https://ltdfoto.ru/images/2024/08/10/image20febe6b826d8b21.png" alt="image20febe6b826d8b21.png" border="0" />
+
+<h2>URL запросов</h2>
+<p>Чтобы разобраться с этим, нужно сначала подумать о коллекциях в вашей БД,
+ведь обычно у вас есть набор различных URL API для каждой коллекции. Также
+у вас может быть набор URL для каждого набора поддокументов. У каждого URL
+в наборе будет тот же базовый путь, а у некоторых могут быть еще дополнительные
+параметры.</p>
+<p>Набором URL необходимо охватить несколько действий, обычно связанных со
+стандартными операциями CRUD. Общие действия, которые, вероятно, вам понадобятся:</p>
+<ul>
+    <li>создание нового элемента;</li>
+    <li>чтение списка из нескольких элементов;</li>
+    <li>чтение конкретного элемента;</li>
+    <li>обновление конкретного элемента;</li>
+    <li>удаление конкретного элемента</li>
+</ul>
+<p>Если говорить о Loc8r, то в БД имеется коллекция Locations (Местоположения),
+с которой нам необходимо взаимодействовать. В табл. ниже показано, как могли бы
+выглядеть URL и параметры для этой коллекции.</p>
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-7btt{border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+    .tg .tg-za14{border-color:inherit;text-align:left;vertical-align:bottom}
+    .tg .tg-wucc{border-color:inherit;color:#00F;text-align:left;text-decoration:underline;vertical-align:top}
+</style>
+<table class="tg"><thead>
+<tr>
+    <th class="tg-7btt">Действие</th>
+    <th class="tg-7btt">Путь URL</th>
+    <th class="tg-7btt">Параметр</th>
+    <th class="tg-7btt">Пример</th>
+</tr></thead>
+    <tbody>
+    <tr>
+        <td class="tg-za14">Создание нового местоположения</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14"></td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/locations">http://loc8r.com/api/locations</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Чтение списка местоположений</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14"></td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/locations">http://loc8r.com/api/locations</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Чтение конкретного местоположения</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14">locationid</td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/%0alocations/123" target="_blank" rel="noopener noreferrer">http://loc8r.com/api/locations/123</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Обновление конкретного местоположения</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14">locationid</td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/%0alocations/123" target="_blank" rel="noopener noreferrer">http://loc8r.com/api/locations/123</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Удаление конкретного местоположения</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14">locationid</td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/%0alocations/123" target="_blank" rel="noopener noreferrer">http://loc8r.com/api/locations/123</a></td>
+    </tr>
+    </tbody></table>
+
+<p>Как вы можете видеть из табл. выше, у всех действий одинаковые пути URL, а три
+из них ожидают на входе один и тот же параметр, задающий место. Это вызывает
+очевидный вопрос: как же можно использовать один и тот же URL для запуска
+различных действий? Ключ к ответу — в методах запроса.</p>
+
+<h2>Методы запроса</h2>
+<p>HTTP-запросы могут использовать различные методы для указания серверу, какой
+тип действия применять. Наиболее распространенный тип запроса — запрос GET —
+метод, который используется, когда вы вводите URL в адресную строку своего
+браузера. Еще один распространенный метод, POST, часто используется при отправке данных форм.</p>
+<p>Методы, которые мы будем применять в API, их типичные сценарии использования, а также то, что они могут возвращать при ответе, демонстрирует табл. ниже.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+    .tg .tg-7btt{border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+    .tg .tg-za14{border-color:inherit;text-align:left;vertical-align:bottom}
+    .tg .tg-0lax{text-align:left;vertical-align:top}
+    .tg .tg-wucc{border-color:inherit;color:#00F;text-align:left;text-decoration:underline;vertical-align:top}
+</style>
+<table class="tg"><thead>
+<tr>
+    <th class="tg-7btt">Действие</th>
+    <th class="tg-1wig">Метод</th>
+    <th class="tg-7btt">Путь URL</th>
+    <th class="tg-7btt">Параметр</th>
+    <th class="tg-7btt">Пример</th>
+</tr></thead>
+    <tbody>
+    <tr>
+        <td class="tg-za14">Создание нового местоположения</td>
+        <td class="tg-0lax">POST</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14"></td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/locations">http://loc8r.com/api/locations</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Чтение списка местоположений</td>
+        <td class="tg-0lax">GET</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14"></td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/locations">http://loc8r.com/api/locations</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Чтение конкретного местоположения</td>
+        <td class="tg-0lax">GET</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14">locationid</td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/%0alocations/123" target="_blank" rel="noopener noreferrer">http://loc8r.com/api/locations/123</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Обновление конкретного местоположения</td>
+        <td class="tg-0lax">PUT</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14">locationid</td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/%0alocations/123" target="_blank" rel="noopener noreferrer">http://loc8r.com/api/locations/123</a></td>
+    </tr>
+    <tr>
+        <td class="tg-za14">Удаление конкретного местоположения</td>
+        <td class="tg-0lax">DELETE</td>
+        <td class="tg-za14">/locations</td>
+        <td class="tg-za14">locationid</td>
+        <td class="tg-wucc"><a href="http://loc8r.com/api/%0alocations/123" target="_blank" rel="noopener noreferrer">http://loc8r.com/api/locations/123</a></td>
+    </tr>
+    </tbody></table>
+
+
+
+
+
+
+

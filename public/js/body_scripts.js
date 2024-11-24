@@ -295,27 +295,25 @@ function loadChapterAutoNav(){
     //todo: сделать автооглавление независимым от числа уровней
     $(function(){
         if (!($('.main-page').length>0 || $('.textbook-index-page').length>0)){
-                jQuery('h1').after('<ul id="autonav"></ul>')
+                // jQuery('h1').after('<ul id="autonav"></ul>')
 
                 h=[0,0,0,0]; pos_memory=0;
                 jQuery(':header:not(h1)').each(function () {
                     let pos=+($(this)[0].nodeName.slice(-1))-2
-//            console.log($(this)[0].nodeName)
-//             console.log(h)
                     h[pos]+=1
-                    // console.log(h)
                     if (pos_memory>pos) {
                         h=h.slice(0,pos+1).concat(h.slice(pos+1).map((num)=>0));
                     }
-                    // console.log(h)
-                    // h[pos]+=1
                     pos_memory=pos
-                    $(this).attr('id','ch-'+(h.filter((n)=>n!=0).join('.')));
+                    var ch = h.filter((n)=>n!=0).join('.')
+                    // $(this).attr('id','ch-'+(h.filter((n)=>n!=0).join('.')));
                     //создание класса уровней списка
                     let list_level=autonav_listLevel(h)
-                    jQuery('#autonav').append(`<li class="${list_level}"><a href=${'#'+$(this).attr('id')}>${$(this).attr('id').slice(3)}. ${$(this).text().replace(/\</g, '&lt;')}</a></li>`);
+                    // jQuery('#autonav').append(`<li class="${list_level}"><a href=${'#'+$(this).attr('id')}>${$(this).attr('id').slice(3)}. ${$(this).text().replace(/\</g, '&lt;')}</a></li>`);
                     // console.log($(this).text())
-                    $(this).html($(this).attr('id').slice(3)+'. '+$(this).html())
+                    // console.log(ch)
+                    $(this).html(ch+'. '+$(this).html())
+                    // $(this).html($(this).attr('id').slice(3)+'. '+$(this).html())
                 })
 //
                 jQuery('span.backgr-col').each(function(){
@@ -326,8 +324,8 @@ function loadChapterAutoNav(){
                 })
         }
     })
-
 }
+
 
 
 

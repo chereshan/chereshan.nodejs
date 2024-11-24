@@ -27,13 +27,15 @@ app.get('/textbook', (req, res) => {
 )
 //todo: написать app.get для хедера
 //todo: экономный поиск title
+//todo: добавить имена страниц для глав учебника
 //todo: рассортироать app.get-запросы как полагается
 app.get('/textbook/[^/]+', (req, res) => {
         // console.log(req)
         let spec_textbook_name=req.originalUrl.replace('/textbook/', '')
         res.render('specific-textbook',
             {
-                chapters: fs.readdirSync(__dirname + `/public/textbook/${spec_textbook_name}`).filter((chapter)=>/ch\d+/.test(chapter))
+                chapters: fs.readdirSync(__dirname + `/public/textbook/${spec_textbook_name}`)
+                    .filter((chapter)=>/ch\d+/.test(chapter))
                     .map((chapter)=>{
                         let file_fs= `/textbook/${spec_textbook_name}/${chapter}`;
                         let file_text=fs.readFileSync(__dirname+'/public' +file_fs, { encoding: 'utf8', flag: 'r' });
@@ -42,6 +44,12 @@ app.get('/textbook/[^/]+', (req, res) => {
                             url: file_fs.replace('.html','')}
 
                     } )
+                    // .sort((a,b)=>{
+                    //     let regsort=function(x){return String(x).match(/Глава (\d+)\./)[1]}
+                    //     if (regsort(a)>regsort(b)){return 1}
+                    //     if (regsort(a)<regsort(b)){return -1}
+                    //     if (regsort(a)==regsort(b)){return 0}
+                    // })
                 ,
                 title: 'Учебник '+spec_textbook_name,
                 textbooks: fs.readdirSync(__dirname + '/public/textbook'),
@@ -52,18 +60,18 @@ app.get('/textbook/[^/]+', (req, res) => {
 )
 
 app.get('/textbook/[Bb]ootstrap/ch[0-9]+', (req, res) => {
-        // console.log('bootstrap')
-        res.render('chapter',
-            {
-                body: fs.readFileSync(__dirname+'/public/'+req._parsedUrl.pathname+'.html',
-                    { encoding: 'utf8', flag: 'r' }),
-                chapter: true,
-                title: '',
-                bootstrap: true,
-                textbooks: fs.readdirSync(__dirname + '/public/textbook')
-            }
-        )
-    }
+    // console.log('bootstrap')
+    res.render('chapter',
+        {
+            body: fs.readFileSync(__dirname+'/public/'+req._parsedUrl.pathname+'.html',
+                { encoding: 'utf8', flag: 'r' }),
+            chapter: true,
+            title: '',
+            bootstrap: true,
+            textbooks: fs.readdirSync(__dirname + '/public/textbook')
+        }
+    )
+}
 )
 
 app.get('/textbook/[^/]+/ch[0-9]+', (req, res) => {
