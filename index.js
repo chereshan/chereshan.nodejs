@@ -44,12 +44,19 @@ app.get('/textbook/[^/]+', (req, res) => {
                             url: file_fs.replace('.html','')}
 
                     } )
-                    // .sort((a,b)=>{
-                    //     let regsort=function(x){return String(x).match(/Глава (\d+)\./)[1]}
-                    //     if (regsort(a)>regsort(b)){return 1}
-                    //     if (regsort(a)<regsort(b)){return -1}
-                    //     if (regsort(a)==regsort(b)){return 0}
-                    // })
+                    .sort((a, b) => {
+                        let regsort = function(x) {
+                            let match = x.match(/(?:Гл\.?|Глава) (\d+)\./);
+                            return match ? +match[1] : Infinity; // Возвращаем 0, если совпадений нет
+                        };
+                        if (regsort(a.title) > regsort(b.title)) {
+                            return 1;
+                        }
+                        if (regsort(a.title) < regsort(b.title)) {
+                            return -1;
+                        }
+                        return 0; // Можно просто вернуть 0, если равны
+                    })
                 ,
                 title: 'Учебник '+spec_textbook_name,
                 textbooks: fs.readdirSync(__dirname + '/public/textbook'),

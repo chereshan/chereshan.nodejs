@@ -340,3 +340,8 @@ nav[data-toggle="toc"] {
     }
     */
 }
+/*кастомные цвета для сайдбара навигации*/
+nav[data-toggle=toc] .nav-link.active, nav[data-toggle=toc] .nav-link.active:focus, nav[data-toggle=toc] .nav-link.active:hover {
+    color: #005ef2;
+    border-left: 2px solid #005ef2;
+}

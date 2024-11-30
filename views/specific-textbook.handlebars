@@ -1,7 +1,18 @@
-<h1  class="textbook-index-page">{{title}}</h1>
-<ul>
+<div class="row g-0">
+<h1  class="textbook-index-page display-5">{{title}}</h1>
+</div>
+<div class="container-fluid mb-4">
+<div class="list-group">
     {{! Шаблон оглавления учебника}}
     {{#each chapters}}
-        <li><a href="{{this.url}}">{{this.title}}</a></li>
+        <a href="{{this.url}}" class="chapter-item mt-2 btn btn-outline-primary list-group-item list-group-item-action">{{this.title}}</a>
     {{/each}}
-</ul>
+</div>
+</div>
+
+<style>
+    .list-group-item.chapter-item{
+        border-top-width: unset;
+    }
+    .list-group-item.chapter-item:first-child {}
+</style>
