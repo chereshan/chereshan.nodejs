@@ -160,7 +160,11 @@ https://webref.ru/layout/pseudo-class-hover/tooltip
 /*Разметка для кода*/
 .hljs {border-radius: 10px;}
 .span-code{display: inline-block;}
-.span-code code.hljs {padding: 0px 3px}
+.span-code code.hljs {
+    padding: 0px 3px;
+    display: inline-flex;
+    overflow: hidden;
+}
 /*Разметка для кнопки раскоменчивания кода*/
 pre:has(code.hljs) img.uncomment-button:not(#site_logo) {
     margin-left: 0px;
