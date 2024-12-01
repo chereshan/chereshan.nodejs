@@ -401,7 +401,7 @@ connecting to 127.0.0.1:5858 ... ok
 break in node-http.js:1
 >   1 const http = require('http');
     2 const port = 8080;
-    3
+    3 ...
 </pre>
 </div>
 </div>
@@ -432,12 +432,12 @@ break in node-http.js:1
 <p>Node также содержит ряд уникальных библиотек. Модуль <span class="code">events</span> — небольшая библиотека <b>для работы с событиями</b> — используется в качестве основы для многих API Node. Например, модуль <span class="code">stream</span> использует модуль <span class="code">events</span><b> для предоставления абстрактных интерфейсов для работы с потоками данных</b>. Поскольку все потоки данных в Node используют одни и те же API, вы можете легко составлять программные компоненты; если у вас имеется объект чтения файлового потока, вы можете направить его через преобразование <span class="code">zlib</span>, которое <b>выполняет сжатие данных</b>, а затем через объект записи в файловый поток для записи данных в файл.</p>
 <p>В следующем листинге продемонстрировано использование модуля Node fs для создания потоков чтения и записи, которые могут направляться через другой поток (<span class="code">gzip</span>) для преобразования данных — в данном случае их сжатия:</p>
 <pre><code >const fs = require('fs');
-const zlib = require('zlib ');
+const zlib = require('zlib');
 const gzip = zlib.createGzip();
 const outStream = fs.createWriteStream('output.js.gz');
 fs.createReadStream('./node-stream.js')
-.pipe(gzip)
-.pipe(outStream);</code></pre>
+    .pipe(gzip)
+    .pipe(outStream);</code></pre>
 
 
 <h3>Сетевые операции</h3>
@@ -445,15 +445,11 @@ fs.createReadStream('./node-stream.js')
 <pre><code >const http = require('http');
 const port = 8080;
 const server = http.createServer((req, res) => {
-res.end('Hello, world.');
+    res.end('Hello, world.');
 });
 server.listen(port, () => {
-console.log('Server listening on: http://localhost:% s', port);
+    console.log('Server listening on: http://localhost:% s', port);
 });</code></pre>
-<!--<h3>Основные типы программ Node</h3>-->
-
-
-
 
 
 <h2>Среда хостинга Node</h2>

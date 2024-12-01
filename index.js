@@ -27,15 +27,14 @@ app.get('/textbook', (req, res) => {
 )
 //todo: написать app.get для хедера
 //todo: экономный поиск title
-//todo: добавить имена страниц для глав учебника
 //todo: рассортироать app.get-запросы как полагается
 app.get('/textbook/[^/]+', (req, res) => {
         // console.log(req)
-        let spec_textbook_name=req.originalUrl.replace('/textbook/', '')
+        const spec_textbook_name=req.originalUrl.replace('/textbook/', '')
         res.render('specific-textbook',
             {
                 chapters: fs.readdirSync(__dirname + `/public/textbook/${spec_textbook_name}`)
-                    .filter((chapter)=>/ch\d+/.test(chapter))
+                    .filter((chapter)=>/\.html/.test(chapter))
                     .map((chapter)=>{
                         let file_fs= `/textbook/${spec_textbook_name}/${chapter}`;
                         let file_text=fs.readFileSync(__dirname+'/public' +file_fs, { encoding: 'utf8', flag: 'r' });
@@ -66,7 +65,7 @@ app.get('/textbook/[^/]+', (req, res) => {
     }
 )
 
-app.get('/textbook/[Bb]ootstrap/ch[0-9]+', (req, res) => {
+app.get('/textbook/[Bb]ootstrap/[^/]+', (req, res) => {
     // console.log('bootstrap')
     res.render('chapter',
         {
@@ -81,7 +80,7 @@ app.get('/textbook/[Bb]ootstrap/ch[0-9]+', (req, res) => {
 }
 )
 
-app.get('/textbook/[^/]+/ch[0-9]+', (req, res) => {
+app.get('/textbook/[^/]+/[^/]+', (req, res) => {
         // console.log('chapter')
         res.render('chapter',
             {
@@ -130,10 +129,10 @@ app.use((req, res) => {
 app.listen(port, () => console.log(
     `Express запущен на http://localhost:${port}/textbook; \n` +
     `http://localhost:${port}/textbook/nodejs; \n`+
-    `http://localhost:${port}/textbook/nodejs/ch1; \n`+
-    `http://localhost:${port}/textbook/nodejs/ch2; \n`+
-    `http://localhost:${port}/textbook/nodejs/ch5; \n`+
-    `http://localhost:${port}/textbook/nodejs/ch6; \n`+
+    `http://localhost:${port}/textbook/nodejs/nodejs-intro; \n`+
+    `http://localhost:${port}/textbook/nodejs/nodejs-quickstart; \n`+
+    `http://localhost:${port}/textbook/nodejs/notsorted; \n`+
+    `http://localhost:${port}/textbook/nodejs/express; \n`+
     `http://localhost:${port}/textbook/Bootstrap/ch1;\n`+
     `http://localhost:${port}/mockshop;\n`+
     `нажмите Ctrl+C для завершения.` ))
