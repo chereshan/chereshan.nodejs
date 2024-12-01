@@ -503,13 +503,3 @@ async function getChapterTitle(num, url){
     });
     return y;
 }
-
-
-//=================================================
-//футер
-$(function() {
-    $('body').append('<footer></footer>')
-    // $("footer").load(!(
-    //     location.pathname=='/' ||
-    //     location.pathname=='/chereshan.github.io/index.html') ? "../commo
-})

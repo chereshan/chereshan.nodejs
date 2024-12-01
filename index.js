@@ -48,12 +48,8 @@ app.get('/textbook/[^/]+', (req, res) => {
                             let match = x.match(/(?:Гл\.?|Глава) (\d+)\./);
                             return match ? +match[1] : Infinity; // Возвращаем 0, если совпадений нет
                         };
-                        if (regsort(a.title) > regsort(b.title)) {
-                            return 1;
-                        }
-                        if (regsort(a.title) < regsort(b.title)) {
-                            return -1;
-                        }
+                        if (regsort(a.title) > regsort(b.title)) {return 1;}
+                        if (regsort(a.title) < regsort(b.title)) {return -1;}
                         return 0; // Можно просто вернуть 0, если равны
                     })
                 ,
