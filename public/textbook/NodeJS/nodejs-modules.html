@@ -2,7 +2,7 @@
 <h1>Глава 2. Модули NodeJS</h1>
 <h2>Структурирование и повторное использование функциональности Node</h2>
 <p>При создании приложения, с использованием Node или без, часто наступает момент, когда хранить весь код в одном файле становится слишком неудобно. В традиционном решении этой проблемы, представленном на <a href="#traditional-structure">рис. ниже</a>, разработчик брал файл с большим объемом кода и разбивал его на отдельные файлы.</p>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/XY3BYkt8/image.png' border='0' alt='image'/></a>
+<img src='/static/img/traditional-structure.png'/>
 <p>В реализациях некоторых языков (таких как PHP и Ruby) внедрение логики из другого файла (включаемого) означает, что вся логика, выполняемая в файле, влияет на глобальную область видимости. Все создаваемые переменные и все функции, объявленные во включаемом файле, заменяют переменные и функции, созданные и объявленные приложением.</p>
 <p>Предположим, вы программируете на PHP, и ваше приложение содержит следующую логику:</p>
 <pre><code >function uppercase_trim($text) {
@@ -26,7 +26,7 @@ Fatal error: Cannot redeclare uppercase_trim()
     <li>Если модуль возвращает одну функцию или переменную, вместо этого можно задать свойство <span class="code">module.exports</span>.</li>
 </ul>
 На <a href="#module-export-scheme">рис. ниже</a> показано, как работает эта схема.</p>
-<a id="module-export-scheme" href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/XJw0qdRf/image.png' border='0' alt='image'/></a>
+<img src='/static/img/module-export-scheme.png'/>
 <p>Избегая загрязнения глобальной области видимости, система модулей Node предотвращает конфликты имен или упрощает повторное использование кода. После этого модули могут быть опубликованы в реестре <span class="code">npm</span>, сетевой подборке готовых модулей Node, и распространяться в сообществе Node. При этом пользователям модулей не нужно беспокоиться о том, что модуль случайно заменит переменные и функции другого модуля.</p>
 
 <h2>Создание модулей</h2>
@@ -97,13 +97,13 @@ exports = Currency;
 <h2>Повторное использование модулей с папкой <span class="code">node_modules</span></h2>
 <p>Включение модулей с указанием их местонахождения в файловой системе относительно приложения полезно для организации кода, специфического для данного приложения. Иначе дело обстоит с кодом, предназначенным для использования в нескольких приложениях или распространения среди других разработчиков. Node имеет уникальный механизм повторного использования кода, который позволяет включать модули без точной информации об их местонахождении в файловой системе. Этот механизм основан на использовании каталогов <span class="code">node_modules</span>.</p>
 <p>В приведенном ранее примере включался модуль <span class="code">./currency</span> . Если убрать <span class="code">./</span> и включить просто <span class="code">currency</span>, Node начинает искать этот модуль по схеме, представленной на <a href="#module-search-hierarchy">рис. ниже</a>.</p>
-<a id="module-search-hierarchy" href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/rw0x9gCc/image.png' border='0' alt='image'/></a>
-<p>Переменная окружения <span class="code">NODE_PATH</span> позволяет выбрать альтернативные каталоги для хранения модулей Node. Если переменная <span class="code">NODE_PATH</span> используется, ей должен быть присвоен список каталогов, разделенных символом точки с запятой (<span class="code">;</span>) в Windows или двоеточием (<span class="code">:</span>) в других операционных системах.</p>
+<img src='/static/img/module-search-hierarchy.png'/>
+<p>Переменная окружения <span class="code">NODE_PATH</span> позволяет выбрать альтернативные каталоги для хранения модулей Node. Если переменная <span class="code">NODE_PATH</span> используется, ей должен быть присвоен список каталогов, разделенных символом точка с запятой (<span class="code">;</span>) в Windows или двоеточием (<span class="code">:</span>) в других операционных системах.</p>
 
 <h2>Потенциальные проблемы</h2>
 <p>Хотя система модулей Node устроена достаточно прямолинейно, вы должны учитывать два обстоятельства.</p>
 <p>Во-первых, если модуль представляет собой каталог, файл в каталоге модуля, который будет обработан, должен называться <span class="code">index.js</span>, если только обратное не указано в файле package.json в каталоге модуля. Чтобы задать другой файл вместо <span class="code">index.js</span>, файл <span class="code">package.json</span> должен содержать данные JSON, определяющие объект с ключом <span class="code">main</span> и значением, которое определяет путь к основному файлу в каталоге модуля. Эти правила обобщены в блок-схеме на <a href="#nodejs-package-json">рис. ниже</a>.</p>
-<a id="nodejs-package-json" href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/rFzr8gHW/image.png' border='0' alt='image'/></a>
+<img src='/static/img/package-json-to-index-js.png'/>
 <p>Пример файла <span class="code">package.json</span>, который назначает основным файлом <span class="code">currency.js</span>:</p>
 <pre><code >{
 "main": "currency.js"
@@ -114,7 +114,7 @@ exports = Currency;
     app.j s
     models
         post.js</code></pre>
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/bdXpfzMm/image.png' border='0' alt='image'/></a>
+<img src='/static/img/common-app-object.png'/>
 
 
 
